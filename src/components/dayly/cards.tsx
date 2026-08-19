@@ -34,7 +34,7 @@ export function SurfaceCard({
   as: As = "div",
 }: {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
   as?: "div" | "li" | "article";
 }) {
   return (
