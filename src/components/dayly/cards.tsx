@@ -48,8 +48,8 @@ export function TaskCard({
   className,
 }: {
   task: Task;
-  assigneeName?: string;
-  className?: string;
+  assigneeName?: string | undefined;
+  className?: string | undefined;
 }) {
   return (
     <SurfaceCard as="article" className={className}>
@@ -170,7 +170,7 @@ export function EvidenceCard({
   className,
 }: {
   evidence: SourceEvidence;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <figure className={cn("rounded-xl border bg-muted/60 p-3", className)}>
@@ -328,7 +328,7 @@ export function MemberCard({
   action,
 }: {
   member: HouseholdMember;
-  action?: ReactNode;
+  action?: ReactNode | undefined;
 }) {
   return (
     <SurfaceCard as="article">
