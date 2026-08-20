@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaptureRouteImport } from './routes/capture'
+import { Route as EventRouteImport } from './routes/event'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as TaskRouteImport } from './routes/task'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const CaptureRoute = CaptureRouteImport.update({
   id: '/capture',
   path: '/capture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventRoute = EventRouteImport.update({
+  id: '/event',
+  path: '/event',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewRoute = ReviewRouteImport.update({
@@ -50,6 +56,7 @@ const TodayRoute = TodayRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -74,15 +83,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/capture' | '/review' | '/signin' | '/task' | '/today'
+  fullPaths:
+    '/' | '/capture' | '/event' | '/review' | '/signin' | '/task' | '/today'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/capture' | '/review' | '/signin' | '/task' | '/today'
-  id: '__root__' | '/' | '/capture' | '/review' | '/signin' | '/task' | '/today'
+  to: '/' | '/capture' | '/event' | '/review' | '/signin' | '/task' | '/today'
+  id:
+    | '__root__'
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaptureRoute: typeof CaptureRoute
+  EventRoute: typeof EventRoute
   ReviewRoute: typeof ReviewRoute
   SigninRoute: typeof SigninRoute
   TaskRoute: typeof TaskRoute
@@ -103,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/capture'
       fullPath: '/capture'
       preLoaderRoute: typeof CaptureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event': {
+      id: '/event'
+      path: '/event'
+      fullPath: '/event'
+      preLoaderRoute: typeof EventRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/review': {
@@ -139,6 +165,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaptureRoute: CaptureRoute,
+  EventRoute: EventRoute,
   ReviewRoute: ReviewRoute,
   SigninRoute: SigninRoute,
   TaskRoute: TaskRoute,
