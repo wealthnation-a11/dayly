@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaptureRouteImport } from './routes/capture'
 import { Route as EventRouteImport } from './routes/event'
+import { Route as ReminderRouteImport } from './routes/reminder'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as TaskRouteImport } from './routes/task'
@@ -30,6 +31,11 @@ const CaptureRoute = CaptureRouteImport.update({
 const EventRoute = EventRouteImport.update({
   id: '/event',
   path: '/event',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReminderRoute = ReminderRouteImport.update({
+  id: '/reminder',
+  path: '/reminder',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewRoute = ReviewRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
@@ -84,14 +93,30 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/capture' | '/event' | '/review' | '/signin' | '/task' | '/today'
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/reminder'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/capture' | '/event' | '/review' | '/signin' | '/task' | '/today'
+  to:
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/reminder'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
   id:
     | '__root__'
     | '/'
     | '/capture'
     | '/event'
+    | '/reminder'
     | '/review'
     | '/signin'
     | '/task'
@@ -102,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaptureRoute: typeof CaptureRoute
   EventRoute: typeof EventRoute
+  ReminderRoute: typeof ReminderRoute
   ReviewRoute: typeof ReviewRoute
   SigninRoute: typeof SigninRoute
   TaskRoute: typeof TaskRoute
@@ -129,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/event'
       fullPath: '/event'
       preLoaderRoute: typeof EventRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminder': {
+      id: '/reminder'
+      path: '/reminder'
+      fullPath: '/reminder'
+      preLoaderRoute: typeof ReminderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/review': {
@@ -166,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaptureRoute: CaptureRoute,
   EventRoute: EventRoute,
+  ReminderRoute: ReminderRoute,
   ReviewRoute: ReviewRoute,
   SigninRoute: SigninRoute,
   TaskRoute: TaskRoute,
