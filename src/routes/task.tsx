@@ -20,9 +20,8 @@ import { daylyService, queryKeys } from "@/lib/dayly/service";
 import type { Priority, Visibility } from "@/lib/dayly/types";
 
 export const Route = createFileRoute("/task")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    id: typeof search.id === "string" ? search.id : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { id?: string } =>
+    typeof search["id"] === "string" ? { id: search["id"] } : {},
   head: () => ({
     meta: [
       { title: "Task — Dayly" },
