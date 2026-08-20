@@ -10,12 +10,38 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaptureRouteImport } from './routes/capture'
+import { Route as EventRouteImport } from './routes/event'
+import { Route as ReminderRouteImport } from './routes/reminder'
+import { Route as ReviewRouteImport } from './routes/review'
 import { Route as SigninRouteImport } from './routes/signin'
+import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
+import { Route as MemoryIndexRouteImport } from './routes/memory.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaptureRoute = CaptureRouteImport.update({
+  id: '/capture',
+  path: '/capture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventRoute = EventRouteImport.update({
+  id: '/event',
+  path: '/event',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReminderRoute = ReminderRouteImport.update({
+  id: '/reminder',
+  path: '/reminder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SigninRoute = SigninRouteImport.update({
@@ -23,40 +49,102 @@ const SigninRoute = SigninRouteImport.update({
   path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TaskRoute = TaskRouteImport.update({
+  id: '/task',
+  path: '/task',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TodayRoute = TodayRouteImport.update({
   id: '/today',
   path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryIndexRoute = MemoryIndexRouteImport.update({
+  id: '/memory/',
+  path: '/memory/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
+  '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
+  '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
+  '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
+  '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory': typeof MemoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/capture': typeof CaptureRoute
+  '/event': typeof EventRoute
+  '/reminder': typeof ReminderRoute
+  '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
+  '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signin' | '/today'
+  fullPaths:
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/reminder'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
+    | '/memory/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signin' | '/today'
-  id: '__root__' | '/' | '/signin' | '/today'
+  to:
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/reminder'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
+    | '/memory'
+  id:
+    | '__root__'
+    | '/'
+    | '/capture'
+    | '/event'
+    | '/reminder'
+    | '/review'
+    | '/signin'
+    | '/task'
+    | '/today'
+    | '/memory/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CaptureRoute: typeof CaptureRoute
+  EventRoute: typeof EventRoute
+  ReminderRoute: typeof ReminderRoute
+  ReviewRoute: typeof ReviewRoute
   SigninRoute: typeof SigninRoute
+  TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
+  MemoryIndexRoute: typeof MemoryIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +156,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/capture': {
+      id: '/capture'
+      path: '/capture'
+      fullPath: '/capture'
+      preLoaderRoute: typeof CaptureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event': {
+      id: '/event'
+      path: '/event'
+      fullPath: '/event'
+      preLoaderRoute: typeof EventRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminder': {
+      id: '/reminder'
+      path: '/reminder'
+      fullPath: '/reminder'
+      preLoaderRoute: typeof ReminderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signin': {
       id: '/signin'
       path: '/signin'
       fullPath: '/signin'
       preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/task': {
+      id: '/task'
+      path: '/task'
+      fullPath: '/task'
+      preLoaderRoute: typeof TaskRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/today': {
@@ -82,13 +205,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory/': {
+      id: '/memory/'
+      path: '/memory'
+      fullPath: '/memory/'
+      preLoaderRoute: typeof MemoryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CaptureRoute: CaptureRoute,
+  EventRoute: EventRoute,
+  ReminderRoute: ReminderRoute,
+  ReviewRoute: ReviewRoute,
   SigninRoute: SigninRoute,
+  TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
+  MemoryIndexRoute: MemoryIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
