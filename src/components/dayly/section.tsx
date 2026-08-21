@@ -10,10 +10,10 @@ export function Section({
   className,
 }: {
   title: string;
-  count?: number;
-  action?: ReactNode;
+  count?: number | undefined;
+  action?: ReactNode | undefined;
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <section className={cn("space-y-3", className)} aria-label={title}>
@@ -40,9 +40,9 @@ export function PageHeader({
   className,
 }: {
   title: string;
-  description?: string;
-  action?: ReactNode;
-  className?: string;
+  description?: string | undefined;
+  action?: ReactNode | undefined;
+  className?: string | undefined;
 }) {
   return (
     <header
