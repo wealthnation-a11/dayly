@@ -18,6 +18,7 @@ import { Route as SigninRouteImport } from './routes/signin'
 import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
+import { Route as MemoryIdRouteImport } from './routes/memory.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const MemoryIndexRoute = MemoryIndexRouteImport.update({
   path: '/memory/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryIdRoute = MemoryIdRouteImport.update({
+  id: '/memory/$id',
+  path: '/memory/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory': typeof MemoryIndexRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory/'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   SigninRoute: typeof SigninRoute
   TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
+  MemoryIdRoute: typeof MemoryIdRoute
   MemoryIndexRoute: typeof MemoryIndexRoute
 }
 
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemoryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory/$id': {
+      id: '/memory/$id'
+      path: '/memory/$id'
+      fullPath: '/memory/$id'
+      preLoaderRoute: typeof MemoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   SigninRoute: SigninRoute,
   TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
+  MemoryIdRoute: MemoryIdRoute,
   MemoryIndexRoute: MemoryIndexRoute,
 }
 export const routeTree = rootRouteImport
