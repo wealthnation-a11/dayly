@@ -12,11 +12,11 @@ export function EmptyState({
   action,
   className,
 }: {
-  icon?: ReactNode;
+  icon?: ReactNode | undefined;
   title: string;
-  description?: string;
-  action?: ReactNode;
-  className?: string;
+  description?: string | undefined;
+  action?: ReactNode | undefined;
+  className?: string | undefined;
 }) {
   return (
     <div
@@ -56,9 +56,9 @@ export function ErrorState({
   description = "We couldn't load this just now. Please try again.",
   onRetry,
 }: {
-  title?: string;
-  description?: string;
-  onRetry?: () => void;
+  title?: string | undefined;
+  description?: string | undefined;
+  onRetry?: (() => void) | undefined;
 }) {
   return (
     <div

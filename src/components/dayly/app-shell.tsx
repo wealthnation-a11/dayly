@@ -12,8 +12,8 @@ export function AppShell({
   unreadCount,
 }: {
   children: ReactNode;
-  className?: string;
-  unreadCount?: number;
+  className?: string | undefined;
+  unreadCount?: number | undefined;
 }) {
   return (
     <div className="flex min-h-svh bg-background">

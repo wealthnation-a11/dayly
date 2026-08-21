@@ -12,12 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaptureRouteImport } from './routes/capture'
 import { Route as EventRouteImport } from './routes/event'
+import { Route as HouseholdRouteImport } from './routes/household'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ReminderRouteImport } from './routes/reminder'
 import { Route as ReviewRouteImport } from './routes/review'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
+import { Route as MemoryIdRouteImport } from './routes/memory.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,6 +38,16 @@ const EventRoute = EventRouteImport.update({
   path: '/event',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HouseholdRoute = HouseholdRouteImport.update({
+  id: '/household',
+  path: '/household',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReminderRoute = ReminderRouteImport.update({
   id: '/reminder',
   path: '/reminder',
@@ -42,6 +56,11 @@ const ReminderRoute = ReminderRouteImport.update({
 const ReviewRoute = ReviewRouteImport.update({
   id: '/review',
   path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SigninRoute = SigninRouteImport.update({
@@ -64,27 +83,40 @@ const MemoryIndexRoute = MemoryIndexRouteImport.update({
   path: '/memory/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MemoryIdRoute = MemoryIdRouteImport.update({
+  id: '/memory/$id',
+  path: '/memory/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
+  '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
+  '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory': typeof MemoryIndexRoute
 }
 export interface FileRoutesById {
@@ -92,11 +124,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
+  '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/memory/$id': typeof MemoryIdRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -105,33 +141,45 @@ export interface FileRouteTypes {
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
+    | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
+    | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory'
   id:
     | '__root__'
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
+    | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
+    | '/memory/$id'
     | '/memory/'
   fileRoutesById: FileRoutesById
 }
@@ -139,11 +187,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaptureRoute: typeof CaptureRoute
   EventRoute: typeof EventRoute
+  HouseholdRoute: typeof HouseholdRoute
+  NotificationsRoute: typeof NotificationsRoute
   ReminderRoute: typeof ReminderRoute
   ReviewRoute: typeof ReviewRoute
+  SettingsRoute: typeof SettingsRoute
   SigninRoute: typeof SigninRoute
   TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
+  MemoryIdRoute: typeof MemoryIdRoute
   MemoryIndexRoute: typeof MemoryIndexRoute
 }
 
@@ -170,6 +222,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/household': {
+      id: '/household'
+      path: '/household'
+      fullPath: '/household'
+      preLoaderRoute: typeof HouseholdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reminder': {
       id: '/reminder'
       path: '/reminder'
@@ -182,6 +248,13 @@ declare module '@tanstack/react-router' {
       path: '/review'
       fullPath: '/review'
       preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signin': {
@@ -212,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemoryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/memory/$id': {
+      id: '/memory/$id'
+      path: '/memory/$id'
+      fullPath: '/memory/$id'
+      preLoaderRoute: typeof MemoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -219,11 +299,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaptureRoute: CaptureRoute,
   EventRoute: EventRoute,
+  HouseholdRoute: HouseholdRoute,
+  NotificationsRoute: NotificationsRoute,
   ReminderRoute: ReminderRoute,
   ReviewRoute: ReviewRoute,
+  SettingsRoute: SettingsRoute,
   SigninRoute: SigninRoute,
   TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
+  MemoryIdRoute: MemoryIdRoute,
   MemoryIndexRoute: MemoryIndexRoute,
 }
 export const routeTree = rootRouteImport
