@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaptureRouteImport } from './routes/capture'
 import { Route as EventRouteImport } from './routes/event'
+import { Route as HouseholdRouteImport } from './routes/household'
 import { Route as ReminderRouteImport } from './routes/reminder'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as SigninRouteImport } from './routes/signin'
@@ -33,6 +34,11 @@ const CaptureRoute = CaptureRouteImport.update({
 const EventRoute = EventRouteImport.update({
   id: '/event',
   path: '/event',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HouseholdRoute = HouseholdRouteImport.update({
+  id: '/household',
+  path: '/household',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReminderRoute = ReminderRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/capture': typeof CaptureRoute
   '/event': typeof EventRoute
+  '/household': typeof HouseholdRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
   '/signin': typeof SigninRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
     | '/reminder'
     | '/review'
     | '/signin'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
     | '/reminder'
     | '/review'
     | '/signin'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/capture'
     | '/event'
+    | '/household'
     | '/reminder'
     | '/review'
     | '/signin'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaptureRoute: typeof CaptureRoute
   EventRoute: typeof EventRoute
+  HouseholdRoute: typeof HouseholdRoute
   ReminderRoute: typeof ReminderRoute
   ReviewRoute: typeof ReviewRoute
   SigninRoute: typeof SigninRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/event'
       fullPath: '/event'
       preLoaderRoute: typeof EventRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/household': {
+      id: '/household'
+      path: '/household'
+      fullPath: '/household'
+      preLoaderRoute: typeof HouseholdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reminder': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaptureRoute: CaptureRoute,
   EventRoute: EventRoute,
+  HouseholdRoute: HouseholdRoute,
   ReminderRoute: ReminderRoute,
   ReviewRoute: ReviewRoute,
   SigninRoute: SigninRoute,
