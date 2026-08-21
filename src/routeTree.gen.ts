@@ -16,6 +16,7 @@ import { Route as HouseholdRouteImport } from './routes/household'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as ReminderRouteImport } from './routes/reminder'
 import { Route as ReviewRouteImport } from './routes/review'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
@@ -57,6 +58,11 @@ const ReviewRoute = ReviewRouteImport.update({
   path: '/review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SigninRoute = SigninRouteImport.update({
   id: '/signin',
   path: '/signin',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/reminder': typeof ReminderRoute
   '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/reminder'
     | '/review'
+    | '/settings'
     | '/signin'
     | '/task'
     | '/today'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   ReminderRoute: typeof ReminderRoute
   ReviewRoute: typeof ReviewRoute
+  SettingsRoute: typeof SettingsRoute
   SigninRoute: typeof SigninRoute
   TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signin': {
       id: '/signin'
       path: '/signin'
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   ReminderRoute: ReminderRoute,
   ReviewRoute: ReviewRoute,
+  SettingsRoute: SettingsRoute,
   SigninRoute: SigninRoute,
   TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
