@@ -1,7 +1,27 @@
-import { AlertTriangle, ArrowDown, ArrowRight, ArrowUp, Lock, Users } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  Brain,
+  CalendarDays,
+  Camera,
+  Check,
+  ClipboardList,
+  FileText,
+  Image as ImageIcon,
+  Lock,
+  Mail,
+  Mic,
+  PencilLine,
+  Sparkles,
+  Users,
+  X,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Priority, TaskStatus, Visibility } from "@/lib/dayly/types";
+import type { AiStatus, ChangeKind, ReviewStatus, SourceKind } from "@/services/types";
 
 const tones = {
   neutral: "bg-muted text-muted-foreground",
@@ -75,5 +95,95 @@ export function VisibilityBadge({ visibility }: { visibility: Visibility }) {
     <StatusBadge tone="primary" icon={<Users className="size-3" aria-hidden="true" />}>
       Household
     </StatusBadge>
+  );
+}
+
+/* ── Intelligence layer badges ─────────────────────────────────────────── */
+
+const reviewMeta: Record<
+  ReviewStatus,
+  { tone: BadgeTone; label: string; Icon: typeof ArrowUp }
+> = {
+  needs_review: { tone: "warning", label: "Needs review", Icon: Sparkles },
+  approved: { tone: "success", label: "Approved", Icon: Check },
+  edited: { tone: "info", label: "Edited", Icon: PencilLine },
+  dismissed: { tone: "neutral", label: "Dismissed", Icon: X },
+};
+
+export function ReviewStatusBadge({
+  status,
+  className,
+}: {
+  status: ReviewStatus;
+  className?: string;
+}) {
+  const { tone, label, Icon } = reviewMeta[status];
+  return (
+    <StatusBadge tone={tone} className={className} icon={<Icon className="size-3" aria-hidden="true" />}>
+      {label}
+    </StatusBadge>
+  );
+}
+
+const changeMeta: Record<ChangeKind, { tone: BadgeTone; label: string }> = {
+  new: { tone: "info", label: "New" },
+  changed: { tone: "warning", label: "Changed" },
+  removed: { tone: "neutral", label: "Removed" },
+  conflict: { tone: "danger", label: "Conflict" },
+};
+
+export function ChangeKindBadge({ kind }: { kind: ChangeKind }) {
+  const { tone, label } = changeMeta[kind];
+  return (
+    <StatusBadge tone={tone} icon={kind === "conflict" ? <AlertTriangle className="size-3" aria-hidden="true" /> : undefined}>
+      {label}
+    </StatusBadge>
+  );
+}
+
+const aiStatusMeta: Record<AiStatus, { tone: BadgeTone; label: string }> = {
+  processing: { tone: "info", label: "Processing" },
+  understood: { tone: "primary", label: "AI understood" },
+  needs_action: { tone: "warning", label: "Needs action" },
+  failed: { tone: "danger", label: "Couldn't read" },
+};
+
+export function AiStatusBadge({ status }: { status: AiStatus }) {
+  const { tone, label } = aiStatusMeta[status];
+  return (
+    <StatusBadge tone={tone} icon={<Sparkles className="size-3" aria-hidden="true" />}>
+      {label}
+    </StatusBadge>
+  );
+}
+
+export const sourceKindMeta: Record<
+  SourceKind,
+  { Icon: typeof Mail; label: string }
+> = {
+  email: { Icon: Mail, label: "Email" },
+  pdf: { Icon: FileText, label: "PDF" },
+  document: { Icon: FileText, label: "Document" },
+  image: { Icon: ImageIcon, label: "Photo" },
+  voice: { Icon: Mic, label: "Voice note" },
+  capture: { Icon: Camera, label: "Capture" },
+  calendar: { Icon: CalendarDays, label: "Calendar" },
+  task: { Icon: ClipboardList, label: "Task" },
+  memory: { Icon: Brain, label: "Dayly Memory" },
+};
+
+export function SourceKindIcon({
+  kind,
+  className,
+}: {
+  kind: SourceKind;
+  className?: string;
+}) {
+  const { Icon, label } = sourceKindMeta[kind];
+  return (
+    <span className={cn("grid size-9 shrink-0 place-items-center rounded-xl bg-primary-soft text-accent-foreground", className)}>
+      <Icon className="size-4.5" aria-hidden="true" />
+      <span className="sr-only">{label}</span>
+    </span>
   );
 }
