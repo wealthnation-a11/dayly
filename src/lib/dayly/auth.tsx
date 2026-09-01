@@ -72,6 +72,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     write(next);
   }, []);
 
+  const signUp = useCallback(async (details: SignUpDetails) => {
+    // Simulated network latency so the UI can show its pending state.
+    await new Promise((res) => setTimeout(res, 900));
+    const next: Session = {
+      signedIn: true,
+      name: details.fullName,
+      email: details.email,
+      householdName: details.householdName,
+      timezone: details.timezone,
+    };
+    setSession(next);
+    write(next);
+    return next;
+  }, []);
+
   const signOut = useCallback(() => {
     const next = { ...demoSession, signedIn: false };
     setSession(next);
@@ -86,8 +101,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ session, signIn, signOut, restore }),
-    [session, signIn, signOut, restore],
+    () => ({ session, signIn, signUp, signOut, restore }),
+    [session, signIn, signUp, signOut, restore],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
