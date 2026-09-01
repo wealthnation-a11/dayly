@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Camera, CalendarCheck, Search, Settings, Users } from "lucide-react";
+import { useState } from "react";
+
+import { DaylyLogo } from "./brand";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
 const items = [
   { to: "/today", label: "Today", Icon: CalendarCheck },
@@ -55,5 +59,41 @@ export function SideNav() {
         ))}
       </ul>
     </nav>
+  );
+}
+
+export function MobileNav({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const [activePath, setActivePath] = useState<string | null>(null);
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="left" className="w-[min(19rem,88vw)] border-r bg-surface p-0">
+        <SheetTitle className="sr-only">Main navigation</SheetTitle>
+        <div className="border-b px-5 py-5">
+          <DaylyLogo />
+        </div>
+        <nav aria-label="Main" className="px-4 py-4">
+          <ul className="space-y-1">
+            {items.map(({ to, label, Icon }) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  onClick={() => {
+                    setActivePath(to);
+                    onOpenChange(false);
+                  }}
+                  className="flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted data-[status=active]:bg-primary-soft data-[status=active]:text-accent-foreground"
+                  activeProps={{ "aria-current": "page" }}
+                  aria-current={activePath === to ? "page" : undefined}
+                >
+                  <Icon className="size-4.5 shrink-0" aria-hidden="true" />
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </SheetContent>
+    </Sheet>
   );
 }
