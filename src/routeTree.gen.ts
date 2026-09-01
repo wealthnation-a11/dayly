@@ -18,6 +18,7 @@ import { Route as ReminderRouteImport } from './routes/reminder'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SigninRouteImport } from './routes/signin'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
@@ -68,6 +69,11 @@ const SigninRoute = SigninRouteImport.update({
   path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TaskRoute = TaskRouteImport.update({
   id: '/task',
   path: '/task',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/review': typeof ReviewRoute
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
   '/memory/$id': typeof MemoryIdRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/review': typeof ReviewRoute
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
   '/memory/$id': typeof MemoryIdRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/review': typeof ReviewRoute
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
   '/memory/$id': typeof MemoryIdRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/settings'
     | '/signin'
+    | '/signup'
     | '/task'
     | '/today'
     | '/memory/$id'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/settings'
     | '/signin'
+    | '/signup'
     | '/task'
     | '/today'
     | '/memory/$id'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/settings'
     | '/signin'
+    | '/signup'
     | '/task'
     | '/today'
     | '/memory/$id'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   ReviewRoute: typeof ReviewRoute
   SettingsRoute: typeof SettingsRoute
   SigninRoute: typeof SigninRoute
+  SignupRoute: typeof SignupRoute
   TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
   MemoryIdRoute: typeof MemoryIdRoute
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SigninRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/task': {
       id: '/task'
       path: '/task'
@@ -305,6 +325,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewRoute: ReviewRoute,
   SettingsRoute: SettingsRoute,
   SigninRoute: SigninRoute,
+  SignupRoute: SignupRoute,
   TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
   MemoryIdRoute: MemoryIdRoute,
