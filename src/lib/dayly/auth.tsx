@@ -12,6 +12,18 @@ interface Session {
   signedIn: boolean;
   name: string;
   email: string;
+  householdName?: string;
+  timezone?: string;
+}
+
+export interface SignUpDetails {
+  fullName: string;
+  email: string;
+  password: string;
+  householdName: string;
+  timezone: string;
+  phone?: string;
+  acceptedTerms: boolean;
 }
 
 const demoSession: Session = {
@@ -23,6 +35,8 @@ const demoSession: Session = {
 interface AuthValue {
   session: Session;
   signIn: (email?: string, name?: string) => void;
+  /** Mock registration — swap the body for a real auth client later. */
+  signUp: (details: SignUpDetails) => Promise<Session>;
   signOut: () => void;
   /** Mock session restoration used by the splash screen. */
   restore: () => Promise<Session>;
