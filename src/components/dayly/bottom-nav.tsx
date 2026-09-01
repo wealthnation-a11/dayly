@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Camera, CalendarCheck, Search, Settings, Users } from "lucide-react";
-import { useState } from "react";
 
 import { DaylyLogo } from "./brand";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
@@ -63,8 +62,6 @@ export function SideNav() {
 }
 
 export function MobileNav({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
-  const [activePath, setActivePath] = useState<string | null>(null);
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-[min(19rem,88vw)] border-r bg-surface p-0">
@@ -78,13 +75,9 @@ export function MobileNav({ open, onOpenChange }: { open: boolean; onOpenChange:
               <li key={to}>
                 <Link
                   to={to}
-                  onClick={() => {
-                    setActivePath(to);
-                    onOpenChange(false);
-                  }}
+                  onClick={() => onOpenChange(false)}
                   className="flex min-h-11 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted data-[status=active]:bg-primary-soft data-[status=active]:text-accent-foreground"
                   activeProps={{ "aria-current": "page" }}
-                  aria-current={activePath === to ? "page" : undefined}
                 >
                   <Icon className="size-4.5 shrink-0" aria-hidden="true" />
                   {label}

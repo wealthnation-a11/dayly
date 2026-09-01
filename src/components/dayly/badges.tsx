@@ -44,7 +44,7 @@ export function StatusBadge({
   children: React.ReactNode;
   tone?: BadgeTone;
   icon?: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <span
