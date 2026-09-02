@@ -53,8 +53,17 @@ function CaptureScreen() {
   const [mode, setMode] = useState<Mode>("photo");
   const [note, setNote] = useState("");
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [pickedName, setPickedName] = useState<string | null>(null);
   const [recording, setRecording] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const photoInput = useRef<HTMLInputElement>(null);
+  const docInput = useRef<HTMLInputElement>(null);
+
+  function onPick(file: File | undefined) {
+    if (!file) return;
+    setPickedName(file.name);
+    setSelectedFile(file.name);
+  }
 
   const canSubmit =
     mode === "text" ? note.trim().length > 3 : mode === "voice" ? recording : Boolean(selectedFile);
