@@ -1,5 +1,5 @@
 /**
- * Notifications service facade (mock). Wraps the existing Dayly data layer.
+ * Notifications service facade facade. Wraps the existing Dayly data layer.
  */
 
 import { daylyService } from "@/lib/dayly/service";

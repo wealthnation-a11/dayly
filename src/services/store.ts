@@ -2,7 +2,7 @@
  * Demo persistence layer.
  *
  * Only user *decisions* are persisted (review status, archive, important),
- * never the mock content itself. When a real backend arrives, replace the
+ * never the content itself. When a real backend arrives, replace the
  * read/write helpers with API calls — the service modules are the only
  * consumers.
  */

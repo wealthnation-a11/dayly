@@ -1,5 +1,5 @@
 /**
- * AI service (mock).
+ * AI service facade.
  *
  * Everything is simulated locally — no AI provider is called. The AI →
  * Review → Action workflow always ends with an explicit user decision, so

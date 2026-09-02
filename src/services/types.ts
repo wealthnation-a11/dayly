@@ -2,7 +2,7 @@
  * Types for the Dayly intelligence layer (Family Inbox, AI Review,
  * cross-source intelligence, What Changed, Ask Dayly).
  *
- * These are transport-shaped DTOs: plain serialisable objects so the mock
+ * These are transport-shaped DTOs: plain serialisable objects so the local
  * services in this folder can be replaced by real API/Supabase calls without
  * touching any UI component.
  */

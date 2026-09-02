@@ -1,8 +1,8 @@
 /**
- * Memory service facade (mock).
+ * Memory service facade facade.
  *
  * Wraps the existing Dayly memory data layer so the new intelligence screens
- * depend on one seam instead of importing mock data directly.
+ * depend on one seam instead of importing data modules directly.
  */
 
 import { daylyService } from "@/lib/dayly/service";

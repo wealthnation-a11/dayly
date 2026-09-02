@@ -1,5 +1,5 @@
 /**
- * Family Inbox service (mock).
+ * Family Inbox service facade.
  *
  * No network calls happen here: incoming email/document ingestion is not
  * connected yet. Swap the bodies for real API/Supabase calls later — the

@@ -2,7 +2,7 @@
  * Frontend data service.
  *
  * This is the single seam between the UI and the backend. Today every function
- * resolves from the local mock data layer with a small artificial delay so
+ * resolves from the local local data layer with a small artificial delay so
  * loading states are real. Replacing the bodies with Supabase / API calls later
  * requires no UI changes.
  */
@@ -18,7 +18,7 @@ import {
   searchAnswers,
   suggestedSearches,
   tasks,
-  mockUser,
+  readProfile,
   type SearchAnswer,
 } from "./data";
 import type {
@@ -40,7 +40,7 @@ function resolve<T>(value: T, ms = LATENCY): Promise<T> {
 }
 
 export const daylyService = {
-  getProfile: (): Promise<UserProfile> => resolve(mockUser),
+  getProfile: (): Promise<UserProfile> => resolve(readProfile()),
   getTasks: (): Promise<Task[]> => resolve(tasks),
   getEvents: (): Promise<DaylyEvent[]> => resolve(events),
   getReminders: (): Promise<Reminder[]> => resolve(reminders),

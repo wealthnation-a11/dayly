@@ -1,5 +1,5 @@
 /**
- * Calendar service (mock). No external calendar provider is connected.
+ * Calendar service facade. No external calendar provider is connected.
  */
 
 import { calendarEvents } from "./data/initial-data";
