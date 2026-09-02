@@ -81,6 +81,12 @@ function SignIn() {
           <Button type="submit" className="w-full">
             Sign in
           </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            New to Dayly?{" "}
+            <Link to="/signup" className="font-semibold text-primary hover:underline">
+              Create account
+            </Link>
+          </p>
           <p className="text-center text-xs text-muted-foreground">
             Demo sign-in — no account is created.
           </p>
