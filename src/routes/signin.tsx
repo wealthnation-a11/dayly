@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { DaylyLogo } from "@/components/dayly/brand";
@@ -81,6 +81,12 @@ function SignIn() {
           <Button type="submit" className="w-full">
             Sign in
           </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            New to Dayly?{" "}
+            <Link to="/signup" className="font-semibold text-primary hover:underline">
+              Create account
+            </Link>
+          </p>
           <p className="text-center text-xs text-muted-foreground">
             Demo sign-in — no account is created.
           </p>

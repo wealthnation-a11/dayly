@@ -37,7 +37,17 @@ export const Route = createFileRoute("/signup")({
   component: SignUp,
 });
 
-type Errors = Partial<Record<string, string>>;
+interface Errors {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  householdName?: string;
+  timezone?: string;
+  password?: string;
+  confirm?: string;
+  accepted?: string;
+  form?: string;
+}
 
 function SignUp() {
   const { signUp } = useAuth();
