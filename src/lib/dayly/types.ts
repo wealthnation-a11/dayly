@@ -117,7 +117,7 @@ export interface DaylyNotification {
   read: boolean;
 }
 
-export interface MockFile {
+export interface StoredFile {
   id: string;
   name: string;
   kind: "pdf" | "image";

@@ -8,25 +8,25 @@
  */
 
 import {
-  mockEvents,
-  mockFiles,
-  mockMemory,
-  mockMembers,
-  mockNotifications,
-  mockProposals,
-  mockReminders,
-  mockSearchAnswers,
-  mockSuggestedSearches,
-  mockTasks,
+  events,
+  storedFiles,
+  memoryItems,
+  householdMembers,
+  notifications,
+  proposals,
+  reminders,
+  searchAnswers,
+  suggestedSearches,
+  tasks,
   mockUser,
   type SearchAnswer,
-} from "./mock-data";
+} from "./data";
 import type {
   DaylyEvent,
   DaylyNotification,
   HouseholdMember,
   MemoryItem,
-  MockFile,
+  StoredFile,
   ProposedItem,
   Reminder,
   Task,
@@ -41,20 +41,20 @@ function resolve<T>(value: T, ms = LATENCY): Promise<T> {
 
 export const daylyService = {
   getProfile: (): Promise<UserProfile> => resolve(mockUser),
-  getTasks: (): Promise<Task[]> => resolve(mockTasks),
-  getEvents: (): Promise<DaylyEvent[]> => resolve(mockEvents),
-  getReminders: (): Promise<Reminder[]> => resolve(mockReminders),
-  getMemory: (): Promise<MemoryItem[]> => resolve(mockMemory),
+  getTasks: (): Promise<Task[]> => resolve(tasks),
+  getEvents: (): Promise<DaylyEvent[]> => resolve(events),
+  getReminders: (): Promise<Reminder[]> => resolve(reminders),
+  getMemory: (): Promise<MemoryItem[]> => resolve(memoryItems),
   getMemoryItem: (id: string): Promise<MemoryItem | undefined> =>
-    resolve(mockMemory.find((m) => m.id === id)),
-  getProposals: (): Promise<ProposedItem[]> => resolve(mockProposals),
-  getMembers: (): Promise<HouseholdMember[]> => resolve(mockMembers),
-  getNotifications: (): Promise<DaylyNotification[]> => resolve(mockNotifications),
-  getFiles: (): Promise<MockFile[]> => resolve(mockFiles),
-  getSuggestedSearches: (): Promise<string[]> => resolve(mockSuggestedSearches, 0),
+    resolve(memoryItems.find((m) => m.id === id)),
+  getProposals: (): Promise<ProposedItem[]> => resolve(proposals),
+  getMembers: (): Promise<HouseholdMember[]> => resolve(householdMembers),
+  getNotifications: (): Promise<DaylyNotification[]> => resolve(notifications),
+  getFiles: (): Promise<StoredFile[]> => resolve(storedFiles),
+  getSuggestedSearches: (): Promise<string[]> => resolve(suggestedSearches, 0),
   search: (query: string): Promise<SearchAnswer> => {
     const q = query.trim().toLowerCase();
-    const hit = mockSearchAnswers.find(
+    const hit = searchAnswers.find(
       (a) =>
         a.query.toLowerCase() === q ||
         q.split(" ").some((word) => word.length > 4 && a.query.toLowerCase().includes(word)),

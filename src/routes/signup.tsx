@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { mockTimezones } from "@/lib/dayly/mock-data";
+import { timezones } from "@/lib/dayly/data";
 import { useAuth } from "@/lib/dayly/auth";
 
 export const Route = createFileRoute("/signup")({
@@ -57,7 +57,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [householdName, setHouseholdName] = useState("");
-  const [timezone, setTimezone] = useState(mockTimezones[0] ?? "");
+  const [timezone, setTimezone] = useState(timezones[0] ?? "");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [accepted, setAccepted] = useState(false);
@@ -173,7 +173,7 @@ function SignUp() {
                 <SelectValue placeholder="Select your timezone" />
               </SelectTrigger>
               <SelectContent>
-                {mockTimezones.map((tz) => (
+                {timezones.map((tz) => (
                   <SelectItem key={tz} value={tz}>
                     {tz}
                   </SelectItem>

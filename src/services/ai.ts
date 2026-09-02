@@ -6,7 +6,7 @@
  * these functions only ever record decisions the user already made.
  */
 
-import { mockAnswers, mockAskSuggestions, mockChanges, mockClusters, mockInboxItems } from "./mock/intelligence-data";
+import { askAnswers, askSuggestions, changeItems, sourceClusters, inboxItems } from "./data/initial-data";
 import { patchState, readState } from "./store";
 import type { AiProposal, AskAnswer, ChangeItem, ReviewStatus, SourceCluster, SourceRef } from "./types";
 
@@ -29,12 +29,12 @@ function hydrateChange(c: ChangeItem): ChangeItem {
 export const aiService = {
   /** All proposals awaiting review across every source. */
   async getPendingProposals(): Promise<AiProposal[]> {
-    const all = mockInboxItems.flatMap((i) => i.proposals).map(hydrateProposal);
+    const all = inboxItems.flatMap((i) => i.proposals).map(hydrateProposal);
     return delay(all.filter((p) => p.status === "needs_review"));
   },
 
   async getProposalsForItem(itemId: string): Promise<AiProposal[]> {
-    const item = mockInboxItems.find((i) => i.id === itemId);
+    const item = inboxItems.find((i) => i.id === itemId);
     return delay((item?.proposals ?? []).map(hydrateProposal));
   },
 
@@ -59,7 +59,7 @@ export const aiService = {
   },
 
   async getChanges(): Promise<ChangeItem[]> {
-    return delay(mockChanges.map(hydrateChange));
+    return delay(changeItems.map(hydrateChange));
   },
 
   async resolveChange(changeId: string, decision: ReviewStatus): Promise<void> {
@@ -68,27 +68,27 @@ export const aiService = {
   },
 
   async getClusters(): Promise<SourceCluster[]> {
-    return delay(mockClusters);
+    return delay(sourceClusters);
   },
 
   async getSources(clusterOrProposalId: string): Promise<SourceRef[]> {
-    const cluster = mockClusters.find((c) => c.id === clusterOrProposalId);
+    const cluster = sourceClusters.find((c) => c.id === clusterOrProposalId);
     if (cluster) return delay(cluster.sources, 160);
-    const proposal = mockInboxItems.flatMap((i) => i.proposals).find((p) => p.id === clusterOrProposalId);
+    const proposal = inboxItems.flatMap((i) => i.proposals).find((p) => p.id === clusterOrProposalId);
     return delay(proposal?.sources ?? [], 160);
   },
 
   getAskSuggestions(): string[] {
-    return mockAskSuggestions;
+    return askSuggestions;
   },
 
   /** Simulated natural-language answer over the family's stored information. */
   async askDayly(question: string): Promise<AskAnswer> {
     const q = question.trim().toLowerCase();
     const words = q.replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter((w) => w.length > 3);
-    let best: (typeof mockAnswers)[number] | undefined;
+    let best: (typeof askAnswers)[number] | undefined;
     let bestScore = 0;
-    for (const candidate of mockAnswers) {
+    for (const candidate of askAnswers) {
       const hay = candidate.question.toLowerCase();
       const score = words.reduce((sum, w) => (hay.includes(w) ? sum + 1 : sum), 0);
       if (score > bestScore) {

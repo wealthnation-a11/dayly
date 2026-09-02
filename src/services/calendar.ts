@@ -2,12 +2,12 @@
  * Calendar service (mock). No external calendar provider is connected.
  */
 
-import { mockCalendar } from "./mock/intelligence-data";
+import { calendarEvents } from "./data/initial-data";
 import type { CalendarEventDto } from "./types";
 
 export const calendarService = {
   getCalendarEvents(): Promise<CalendarEventDto[]> {
-    return new Promise((resolve) => setTimeout(() => resolve(mockCalendar), 300));
+    return new Promise((resolve) => setTimeout(() => resolve(calendarEvents), 300));
   },
 };
 
