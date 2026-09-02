@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Camera, FileText, Loader2, Mail, Mic, PenLine, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/dayly/app-shell";
@@ -211,7 +211,7 @@ function CaptureScreen() {
                   {recording ? "Stop recording" : "Start recording"}
                 </Button>
                 <p className="mt-3 text-xs text-muted-foreground">
-                  {recording ? "Listening…" : "Recording is simulated in this demo."}
+                  {recording ? "Listening…" : "Tap to record. Dayly transcribes it after you stop."}
                 </p>
               </div>
             </SurfaceCard>
