@@ -43,7 +43,8 @@ export const suggestedSearches: string[] = [];
 export interface SearchAnswer {
   query: string;
   answer: string | null;
-  related: { id: string; title: string; meta: string }[];
+  evidence?: { sourceId: string; sourceTitle: string; quote: string; locator: string };
+  related: string[];
 }
 
 export const searchAnswers: SearchAnswer[] = [];
