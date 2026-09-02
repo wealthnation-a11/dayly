@@ -100,14 +100,22 @@ function CaptureScreen() {
                   <Camera className="size-7" aria-hidden="true" />
                 </span>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Camera preview is not available in this demo.
+                  {pickedName ?? "Take a photo, or choose one from your library."}
                 </p>
+                <input
+                  ref={photoInput}
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  className="hidden"
+                  onChange={(e) => onPick(e.target.files?.[0])}
+                />
                 <Button
                   className="mt-4"
                   variant="outline"
-                  onClick={() => setSelectedFile(filesQ.data?.[1]?.id ?? "demo")}
+                  onClick={() => photoInput.current?.click()}
                 >
-                  Use a sample photo
+                  {pickedName ? "Choose a different photo" : "Take or choose a photo"}
                 </Button>
               </div>
             </SurfaceCard>
@@ -115,11 +123,35 @@ function CaptureScreen() {
 
           <TabsContent value="document" className="mt-4">
             <Section title="Choose a file">
+              <SurfaceCard className="border-dashed">
+                <div className="flex flex-col items-center py-6 text-center">
+                  <span className="grid size-14 place-items-center rounded-2xl bg-primary-soft text-primary">
+                    <FileText className="size-6" aria-hidden="true" />
+                  </span>
+                  <p className="mt-4 text-sm text-muted-foreground">
+                    {pickedName ?? "PDF, image or scan — up to 20 MB."}
+                  </p>
+                  <input
+                    ref={docInput}
+                    type="file"
+                    accept="application/pdf,image/*"
+                    className="hidden"
+                    onChange={(e) => onPick(e.target.files?.[0])}
+                  />
+                  <Button
+                    className="mt-4"
+                    variant="outline"
+                    onClick={() => docInput.current?.click()}
+                  >
+                    {pickedName ? "Choose a different file" : "Choose a file"}
+                  </Button>
+                </div>
+              </SurfaceCard>
               {filesQ.isPending ? (
                 <LoadingCards count={2} />
-              ) : (
-                <div className="space-y-3">
-                  {filesQ.data?.map((file) => (
+              ) : filesQ.data && filesQ.data.length > 0 ? (
+                <div className="mt-3 space-y-3">
+                  {filesQ.data.map((file) => (
                     <FileCard
                       key={file.id}
                       file={file}
@@ -128,7 +160,7 @@ function CaptureScreen() {
                     />
                   ))}
                 </div>
-              )}
+              ) : null}
             </Section>
           </TabsContent>
 
