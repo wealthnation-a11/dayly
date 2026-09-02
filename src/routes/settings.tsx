@@ -175,7 +175,7 @@ function SettingsScreen() {
                 <AlertDialogFooter>
                   <AlertDialogCancel>Keep my account</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => toast("Deletion is disabled in this demo")}
+                    onClick={() => toast.error("Account deletion is not available yet", { description: "Contact support to close your account." })}
                     className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                   >
                     Delete permanently

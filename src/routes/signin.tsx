@@ -25,8 +25,8 @@ export const Route = createFileRoute("/signin")({
 function SignIn() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("joshua@example.com");
-  const [password, setPassword] = useState("demo-password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   return (
@@ -86,9 +86,6 @@ function SignIn() {
             <Link to="/signup" className="font-semibold text-primary hover:underline">
               Create account
             </Link>
-          </p>
-          <p className="text-center text-xs text-muted-foreground">
-            Demo sign-in — no account is created.
           </p>
         </form>
       </div>

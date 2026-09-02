@@ -1,13 +1,13 @@
 /**
- * Memory service facade (mock).
+ * Memory service facade facade.
  *
  * Wraps the existing Dayly memory data layer so the new intelligence screens
- * depend on one seam instead of importing mock data directly.
+ * depend on one seam instead of importing data modules directly.
  */
 
 import { daylyService } from "@/lib/dayly/service";
 import type { MemoryItem } from "@/lib/dayly/types";
-import { mockClusters } from "./mock/intelligence-data";
+import { sourceClusters } from "./data/initial-data";
 import type { SourceCluster } from "./types";
 
 export const memoryService = {
@@ -15,7 +15,7 @@ export const memoryService = {
   getMemoryItem: (id: string): Promise<MemoryItem | undefined> => daylyService.getMemoryItem(id),
   /** Cross-source clusters that group related memory, inbox and calendar items. */
   getConnectedInformation: (): Promise<SourceCluster[]> =>
-    new Promise((resolve) => setTimeout(() => resolve(mockClusters), 300)),
+    new Promise((resolve) => setTimeout(() => resolve(sourceClusters), 300)),
 };
 
 export const memoryKeys = { connected: ["memory", "connected"] as const };

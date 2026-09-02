@@ -1,12 +1,12 @@
 /**
- * Family Inbox service (mock).
+ * Family Inbox service facade.
  *
  * No network calls happen here: incoming email/document ingestion is not
  * connected yet. Swap the bodies for real API/Supabase calls later — the
  * signatures are the contract the UI depends on.
  */
 
-import { mockInboxItems } from "./mock/intelligence-data";
+import { inboxItems } from "./data/initial-data";
 import { patchState, readState } from "./store";
 import type { InboxCategory, InboxItem, InboxItemDetail, ReviewStatus } from "./types";
 
@@ -83,7 +83,7 @@ export const inboxService = {
   async getInboxItems(query: InboxQuery = {}): Promise<InboxItem[]> {
     const { search = "", filter = "all", sort = "newest" } = query;
     const q = search.trim().toLowerCase();
-    const items = mockInboxItems
+    const items = inboxItems
       .map(hydrate)
       .map(toListItem)
       .filter((item) => matchesFilter(item, filter))
@@ -107,12 +107,12 @@ export const inboxService = {
   },
 
   async getInboxItem(id: string): Promise<InboxItemDetail | null> {
-    const found = mockInboxItems.find((i) => i.id === id);
+    const found = inboxItems.find((i) => i.id === id);
     return delay(found ? hydrate(found) : null);
   },
 
   async getInboxCounts(): Promise<{ needsAttention: number; needsReview: number; unreviewed: number }> {
-    const items = mockInboxItems.map(hydrate).filter((i) => !i.archived);
+    const items = inboxItems.map(hydrate).filter((i) => !i.archived);
     return delay(
       {
         needsAttention: items.filter((i) => i.reviewStatus === "needs_review").length,
@@ -142,7 +142,7 @@ export const inboxService = {
   },
 
   async markAllReviewed(): Promise<number> {
-    const ids = mockInboxItems
+    const ids = inboxItems
       .map(hydrate)
       .filter((i) => !i.archived && i.reviewStatus === "needs_review")
       .map((i) => i.id);

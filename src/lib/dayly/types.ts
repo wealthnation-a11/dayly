@@ -1,6 +1,6 @@
 /**
  * Dayly domain types.
- * Shared by the mock data layer and every screen, so a real backend can be
+ * Shared by the local data layer and every screen, so a real backend can be
  * swapped in later without touching UI components.
  */
 
@@ -117,7 +117,7 @@ export interface DaylyNotification {
   read: boolean;
 }
 
-export interface MockFile {
+export interface StoredFile {
   id: string;
   name: string;
   kind: "pdf" | "image";

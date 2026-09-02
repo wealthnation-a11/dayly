@@ -22,7 +22,7 @@ import type {
   DaylyNotification,
   HouseholdMember,
   MemoryItem,
-  MockFile,
+  StoredFile,
   Reminder,
   SourceEvidence,
   Task,
@@ -239,7 +239,7 @@ export function FileCard({
   selected,
   onSelect,
 }: {
-  file: MockFile;
+  file: StoredFile;
   selected: boolean;
   onSelect: () => void;
 }) {
