@@ -94,7 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signOut = useCallback(() => {
-    const next = { ...demoSession, signedIn: false };
+    const next: Session = { ...read(), signedIn: false };
     setSession(next);
     write(next);
   }, []);

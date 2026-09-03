@@ -1,5 +1,5 @@
 /**
- * Demo persistence layer.
+ * Local persistence layer.
  *
  * Only user *decisions* are persisted (review status, archive, important),
  * never the content itself. When a real backend arrives, replace the
@@ -47,7 +47,7 @@ export function writeState(next: PersistedState) {
   try {
     window.localStorage.setItem(KEY, JSON.stringify(next));
   } catch {
-    /* storage unavailable — demo state stays in memory only */
+    /* storage unavailable — state stays in memory only */
   }
 }
 
