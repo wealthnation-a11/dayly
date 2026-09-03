@@ -26,31 +26,31 @@ export interface SignUpDetails {
   acceptedTerms: boolean;
 }
 
-const demoSession: Session = {
-  signedIn: true,
-  name: "Joshua A.",
-  email: "joshua@example.com",
+const signedOut: Session = {
+  signedIn: false,
+  name: "",
+  email: "",
 };
 
 interface AuthValue {
   session: Session;
-  signIn: (email?: string, name?: string) => void;
-  /** Mock registration — swap the body for a real auth client later. */
+  signIn: (email: string, name?: string) => void;
+  /** Registration — swap the body for a real auth client later. */
   signUp: (details: SignUpDetails) => Promise<Session>;
   signOut: () => void;
-  /** Mock session restoration used by the splash screen. */
+  /** Session restoration used by the splash screen. */
   restore: () => Promise<Session>;
 }
 
 const AuthContext = createContext<AuthValue | null>(null);
 
 function read(): Session {
-  if (typeof window === "undefined") return demoSession;
+  if (typeof window === "undefined") return signedOut;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Session) : demoSession;
+    return raw ? (JSON.parse(raw) as Session) : signedOut;
   } catch {
-    return demoSession;
+    return signedOut;
   }
 }
 
@@ -64,10 +64,16 @@ function write(session: Session) {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [session, setSession] = useState<Session>(demoSession);
+  const [session, setSession] = useState<Session>(signedOut);
 
-  const signIn = useCallback((email = demoSession.email, name = demoSession.name) => {
-    const next = { signedIn: true, email, name };
+  const signIn = useCallback((email: string, name?: string) => {
+    const previous = read();
+    const next: Session = {
+      ...previous,
+      signedIn: true,
+      email,
+      name: name ?? (previous.email === email ? previous.name : ""),
+    };
     setSession(next);
     write(next);
   }, []);
