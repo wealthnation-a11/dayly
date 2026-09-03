@@ -211,7 +211,7 @@ function InboxScreen() {
                       className="block rounded-2xl p-4 hover:bg-muted/50"
                     >
                       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3">
-                        <SourceKindIcon type={item.sourceKind} />
+                        <SourceKindIcon kind={item.sourceKind} />
                         <div className="min-w-0">
                           <p className="truncate text-sm font-bold">{item.title}</p>
                           <p className="mt-0.5 truncate text-xs font-semibold text-muted-foreground">
