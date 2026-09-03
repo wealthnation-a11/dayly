@@ -103,7 +103,7 @@ export const aiService = {
           id,
           question,
           answer:
-            "I couldn't find anything in your family's stored information that answers that yet. Try asking about school, soccer, appointments or documents — or capture the information first so I can learn it.",
+            "I couldn't find anything in your family's stored information that answers that yet. Capture the email, document or note that holds it and ask again.",
           bullets: [],
           sources: [],
         },
