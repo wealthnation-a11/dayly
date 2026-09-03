@@ -123,7 +123,7 @@ function SignUp() {
             <Input
               id="fullName"
               autoComplete="name"
-              placeholder="Joshua Adeyemi"
+              placeholder="Your full name"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               aria-invalid={Boolean(errors.fullName)}
@@ -157,7 +157,7 @@ function SignUp() {
           <Field id="householdName" label="Household name" error={errors.householdName}>
             <Input
               id="householdName"
-              placeholder="The Adeyemi Household"
+              placeholder="e.g. The Smith Household"
               value={householdName}
               onChange={(e) => setHouseholdName(e.target.value)}
               aria-invalid={Boolean(errors.householdName)}
