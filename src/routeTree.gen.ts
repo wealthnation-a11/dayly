@@ -21,6 +21,8 @@ import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TaskRouteImport } from './routes/task'
 import { Route as TodayRouteImport } from './routes/today'
+import { Route as InboxIndexRouteImport } from './routes/inbox.index'
+import { Route as InboxIdRouteImport } from './routes/inbox.$id'
 import { Route as MemoryIndexRouteImport } from './routes/memory.index'
 import { Route as MemoryIdRouteImport } from './routes/memory.$id'
 
@@ -84,6 +86,16 @@ const TodayRoute = TodayRouteImport.update({
   path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InboxIndexRoute = InboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InboxIdRoute = InboxIdRouteImport.update({
+  id: '/inbox/$id',
+  path: '/inbox/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MemoryIndexRoute = MemoryIndexRouteImport.update({
   id: '/memory/',
   path: '/memory/',
@@ -108,7 +120,9 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/inbox/$id': typeof InboxIdRoute
   '/memory/$id': typeof MemoryIdRoute
+  '/inbox/': typeof InboxIndexRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -124,7 +138,9 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/inbox/$id': typeof InboxIdRoute
   '/memory/$id': typeof MemoryIdRoute
+  '/inbox': typeof InboxIndexRoute
   '/memory': typeof MemoryIndexRoute
 }
 export interface FileRoutesById {
@@ -141,7 +157,9 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/task': typeof TaskRoute
   '/today': typeof TodayRoute
+  '/inbox/$id': typeof InboxIdRoute
   '/memory/$id': typeof MemoryIdRoute
+  '/inbox/': typeof InboxIndexRoute
   '/memory/': typeof MemoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -159,7 +177,9 @@ export interface FileRouteTypes {
     | '/signup'
     | '/task'
     | '/today'
+    | '/inbox/$id'
     | '/memory/$id'
+    | '/inbox/'
     | '/memory/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -175,7 +195,9 @@ export interface FileRouteTypes {
     | '/signup'
     | '/task'
     | '/today'
+    | '/inbox/$id'
     | '/memory/$id'
+    | '/inbox'
     | '/memory'
   id:
     | '__root__'
@@ -191,7 +213,9 @@ export interface FileRouteTypes {
     | '/signup'
     | '/task'
     | '/today'
+    | '/inbox/$id'
     | '/memory/$id'
+    | '/inbox/'
     | '/memory/'
   fileRoutesById: FileRoutesById
 }
@@ -208,7 +232,9 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   TaskRoute: typeof TaskRoute
   TodayRoute: typeof TodayRoute
+  InboxIdRoute: typeof InboxIdRoute
   MemoryIdRoute: typeof MemoryIdRoute
+  InboxIndexRoute: typeof InboxIndexRoute
   MemoryIndexRoute: typeof MemoryIndexRoute
 }
 
@@ -298,6 +324,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/inbox/': {
+      id: '/inbox/'
+      path: '/inbox'
+      fullPath: '/inbox/'
+      preLoaderRoute: typeof InboxIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inbox/$id': {
+      id: '/inbox/$id'
+      path: '/inbox/$id'
+      fullPath: '/inbox/$id'
+      preLoaderRoute: typeof InboxIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/memory/': {
       id: '/memory/'
       path: '/memory'
@@ -328,7 +368,9 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   TaskRoute: TaskRoute,
   TodayRoute: TodayRoute,
+  InboxIdRoute: InboxIdRoute,
   MemoryIdRoute: MemoryIdRoute,
+  InboxIndexRoute: InboxIndexRoute,
   MemoryIndexRoute: MemoryIndexRoute,
 }
 export const routeTree = rootRouteImport
