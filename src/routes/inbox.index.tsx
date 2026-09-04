@@ -147,8 +147,7 @@ function InboxScreen() {
             placeholder="Search inbox by subject, sender or person"
             aria-label="Search inbox"
           />
-          <div className="flex items-center gap-2">
-            <div className="-mx-1 flex flex-1 gap-2 overflow-x-auto px-1 pb-1">
+          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
               {filters.map((f) => (
                 <button
                   key={f.value}
@@ -164,15 +163,16 @@ function InboxScreen() {
                 >
                   {f.label}
                 </button>
-              ))}
-            </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-end">
             <Select value={sort} onValueChange={(v) => setSort(v as InboxSort)}>
-              <SelectTrigger className="w-32 shrink-0" aria-label="Sort inbox">
-                <SelectValue />
+              <SelectTrigger className="w-40" aria-label="Sort inbox">
+                <SelectValue placeholder="Sort" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="newest">Newest</SelectItem>
-                <SelectItem value="oldest">Oldest</SelectItem>
+                <SelectItem value="newest">Newest first</SelectItem>
+                <SelectItem value="oldest">Oldest first</SelectItem>
                 <SelectItem value="actions">Most actions</SelectItem>
                 <SelectItem value="source">Source</SelectItem>
               </SelectContent>
