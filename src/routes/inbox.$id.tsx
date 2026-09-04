@@ -168,9 +168,9 @@ function InboxDetailScreen() {
                     <AIReviewCard
                       key={proposal.id}
                       proposal={proposal}
-                      onDecision={(decision) =>
-                        decide.mutateAsync({ proposalId: proposal.id, decision })
-                      }
+                      onDecision={async (decision) => {
+                        await decide.mutateAsync({ proposalId: proposal.id, decision });
+                      }}
                     />
                   ))}
                 </div>
