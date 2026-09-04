@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Camera, CalendarCheck, Search, Settings, Users } from "lucide-react";
+import { Camera, CalendarCheck, Inbox, Search, Settings, Users } from "lucide-react";
 
 const items = [
   { to: "/today", label: "Today", Icon: CalendarCheck },
+  { to: "/inbox", label: "Inbox", Icon: Inbox },
   { to: "/capture", label: "Capture", Icon: Camera },
   { to: "/memory", label: "Memory", Icon: Search },
   { to: "/household", label: "Household", Icon: Users },
@@ -21,7 +22,7 @@ export function BottomNav() {
           <li key={to} className="flex-1">
             <Link
               to={to}
-              className="flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl py-2 text-[11px] font-semibold text-muted-foreground transition-colors data-[status=active]:text-primary"
+              className="flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-0.5 py-2 text-[10px] font-semibold text-muted-foreground transition-colors data-[status=active]:text-primary"
               activeProps={{ "aria-current": "page" }}
             >
               <Icon className="size-5" aria-hidden="true" />
