@@ -81,6 +81,76 @@ function TodayScreen() {
           </SurfaceCard>
         ) : null}
 
+        {inboxCountsQ.data && inboxCountsQ.data.needsAttention > 0 ? (
+          <SurfaceCard>
+            <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+              <span className="grid size-9 place-items-center rounded-xl bg-primary-soft text-primary">
+                <Inbox className="size-4.5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <h2 className="font-bold">Family Inbox</h2>
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  {inboxCountsQ.data.needsAttention} item
+                  {inboxCountsQ.data.needsAttention === 1 ? "" : "s"} to look at
+                  {inboxCountsQ.data.needsReview > 0
+                    ? `, with ${inboxCountsQ.data.needsReview} proposed action${inboxCountsQ.data.needsReview === 1 ? "" : "s"}`
+                    : ""}
+                  .
+                </p>
+                <Button asChild size="sm" variant="outline" className="mt-3">
+                  <Link to="/inbox">Open inbox</Link>
+                </Button>
+              </div>
+            </div>
+          </SurfaceCard>
+        ) : null}
+
+        {pendingChanges.length > 0 ? (
+          <SurfaceCard className="border-warning/40 bg-warning-soft">
+            <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+              <span className="grid size-9 place-items-center rounded-xl bg-card text-warning">
+                <RefreshCw className="size-4.5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <h2 className="font-bold">What changed?</h2>
+                <p className="mt-0.5 text-sm">
+                  {pendingChanges.length} update
+                  {pendingChanges.length === 1 ? "" : "s"} to your household's plans need a decision.
+                </p>
+                <ul className="mt-2 space-y-1 text-sm">
+                  {pendingChanges.slice(0, 2).map((change) => (
+                    <li key={change.id} className="truncate font-medium">
+                      {change.emoji} {change.title}
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild size="sm" variant="outline" className="mt-3">
+                  <Link to="/changes">See what changed</Link>
+                </Button>
+              </div>
+            </div>
+          </SurfaceCard>
+        ) : null}
+
+        <SurfaceCard className="p-0">
+          <Link
+            to="/ask"
+            className="flex items-center gap-3 rounded-2xl p-4 hover:bg-muted/50"
+          >
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-sun-soft text-sun-foreground">
+              <MessageCircleQuestion className="size-4.5" aria-hidden="true" />
+            </span>
+            <span className="min-w-0">
+              <span className="block font-bold">Ask Dayly</span>
+              <span className="block text-sm text-muted-foreground">
+                Ask anything about your household's information.
+              </span>
+            </span>
+          </Link>
+        </SurfaceCard>
+
+
+
         <Section title="Today's schedule" count={todayEvents.length}>
           {eventsQ.isPending ? (
             <LoadingCards count={2} />
