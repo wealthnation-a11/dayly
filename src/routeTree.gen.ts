@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AskRouteImport } from './routes/ask'
 import { Route as CaptureRouteImport } from './routes/capture'
+import { Route as ChangesRouteImport } from './routes/changes'
 import { Route as EventRouteImport } from './routes/event'
 import { Route as HouseholdRouteImport } from './routes/household'
 import { Route as NotificationsRouteImport } from './routes/notifications'
@@ -31,9 +33,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AskRoute = AskRouteImport.update({
+  id: '/ask',
+  path: '/ask',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaptureRoute = CaptureRouteImport.update({
   id: '/capture',
   path: '/capture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChangesRoute = ChangesRouteImport.update({
+  id: '/changes',
+  path: '/changes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventRoute = EventRouteImport.update({
@@ -109,7 +121,9 @@ const MemoryIdRoute = MemoryIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/capture': typeof CaptureRoute
+  '/changes': typeof ChangesRoute
   '/event': typeof EventRoute
   '/household': typeof HouseholdRoute
   '/notifications': typeof NotificationsRoute
@@ -127,7 +141,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/capture': typeof CaptureRoute
+  '/changes': typeof ChangesRoute
   '/event': typeof EventRoute
   '/household': typeof HouseholdRoute
   '/notifications': typeof NotificationsRoute
@@ -146,7 +162,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ask': typeof AskRoute
   '/capture': typeof CaptureRoute
+  '/changes': typeof ChangesRoute
   '/event': typeof EventRoute
   '/household': typeof HouseholdRoute
   '/notifications': typeof NotificationsRoute
@@ -166,7 +184,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ask'
     | '/capture'
+    | '/changes'
     | '/event'
     | '/household'
     | '/notifications'
@@ -184,7 +204,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ask'
     | '/capture'
+    | '/changes'
     | '/event'
     | '/household'
     | '/notifications'
@@ -202,7 +224,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ask'
     | '/capture'
+    | '/changes'
     | '/event'
     | '/household'
     | '/notifications'
@@ -221,7 +245,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AskRoute: typeof AskRoute
   CaptureRoute: typeof CaptureRoute
+  ChangesRoute: typeof ChangesRoute
   EventRoute: typeof EventRoute
   HouseholdRoute: typeof HouseholdRoute
   NotificationsRoute: typeof NotificationsRoute
@@ -247,11 +273,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ask': {
+      id: '/ask'
+      path: '/ask'
+      fullPath: '/ask'
+      preLoaderRoute: typeof AskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/capture': {
       id: '/capture'
       path: '/capture'
       fullPath: '/capture'
       preLoaderRoute: typeof CaptureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/changes': {
+      id: '/changes'
+      path: '/changes'
+      fullPath: '/changes'
+      preLoaderRoute: typeof ChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/event': {
@@ -357,7 +397,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AskRoute: AskRoute,
   CaptureRoute: CaptureRoute,
+  ChangesRoute: ChangesRoute,
   EventRoute: EventRoute,
   HouseholdRoute: HouseholdRoute,
   NotificationsRoute: NotificationsRoute,
