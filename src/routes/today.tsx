@@ -1,6 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { CalendarPlus, CheckCircle2, Plus, Sparkles } from "lucide-react";
+import {
+  CalendarPlus,
+  CheckCircle2,
+  Inbox,
+  MessageCircleQuestion,
+  Plus,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 
 import { AppShell } from "@/components/dayly/app-shell";
 import { StatusBadge } from "@/components/dayly/badges";
@@ -9,6 +17,8 @@ import { PageHeader, Section } from "@/components/dayly/section";
 import { EmptyState, ErrorState, LoadingCards } from "@/components/dayly/states";
 import { Button } from "@/components/ui/button";
 import { queryKeys, daylyService } from "@/lib/dayly/service";
+import { aiKeys, aiService } from "@/services/ai";
+import { inboxKeys, inboxService } from "@/services/inbox";
 
 export const Route = createFileRoute("/today")({
   head: () => ({
@@ -39,6 +49,13 @@ function TodayScreen() {
     queryFn: daylyService.getNotifications,
   });
 
+  const inboxCountsQ = useQuery({
+    queryKey: inboxKeys.counts,
+    queryFn: inboxService.getInboxCounts,
+  });
+  const changesQ = useQuery({ queryKey: aiKeys.changes, queryFn: aiService.getChanges });
+
+  const pendingChanges = changesQ.data?.filter((c) => c.status === "needs_review") ?? [];
   const unread = notificationsQ.data?.filter((n) => !n.read).length ?? 0;
   const todayEvents = eventsQ.data?.slice(0, 2) ?? [];
   const overdue = tasksQ.data?.filter((t) => t.status === "overdue") ?? [];
