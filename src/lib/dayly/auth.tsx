@@ -1,5 +1,5 @@
 /**
- * Mock session layer.
+ * Local session layer.
  * Deliberately tiny and self-contained: replace the internals with a real auth
  * client later without touching screen components.
  */

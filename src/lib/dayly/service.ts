@@ -2,7 +2,7 @@
  * Frontend data service.
  *
  * This is the single seam between the UI and the backend. Today every function
- * resolves from the local local data layer with a small artificial delay so
+ * resolves from the local data layer with a small artificial delay so
  * loading states are real. Replacing the bodies with Supabase / API calls later
  * requires no UI changes.
  */
