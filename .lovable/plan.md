@@ -33,6 +33,12 @@ Photo, document and voice captures upload to file storage and create an inbox it
 ### 5. Ask Dayly and AI review
 `askDayly` and the extraction pipeline call a server-side AI endpoint that only ever answers from the household's own stored items and must return source references. No proposal is applied without an explicit approval action.
 
+### 6. Subscriptions (Stripe)
+- The Stripe **secret key never appears in the codebase** — it is stored as a project secret and read inside server handlers only.
+- Server functions for: creating a checkout session, opening the customer portal (manage/cancel billing), and reading the household's current plan.
+- A webhook endpoint at `/api/public/stripe-webhook` verifies Stripe's signature over the raw request body before doing anything, then records subscription status and plan on the household.
+- A `subscriptions` table (household id, plan, status, renews-at) with RLS so members read only their own household's row; premium gates check it server-side, never from browser storage.
+
 ## Technical notes
 
 - Auth and database: Supabase (Postgres + Auth + Storage + row-level security), which the frontend types were designed against.
