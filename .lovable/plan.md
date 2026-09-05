@@ -110,6 +110,22 @@ E. Capture upload: photo/document/voice go to a Storage bucket with per-
 F. Ask Dayly + AI review: a server function that answers only from the
    signed-in user's household data and always returns SourceRef entries. No
    proposal is ever applied without an explicit user approval call.
+G. Subscriptions with Stripe:
+   - NEVER hardcode the Stripe secret key or put it in the repo. It is read
+     with process.env['STRIPE_SECRET_KEY'] inside server handlers only.
+   - Add a subscriptions table (household_id, plan, status, current_period_end,
+     stripe_customer_id, stripe_subscription_id) with grants and RLS: members
+     can read only their own household's row.
+   - Server functions: createCheckoutSession (redirect to Stripe Checkout),
+     createBillingPortalSession (manage/cancel), getSubscription (current plan
+     for the signed-in user's household).
+   - A webhook route at src/routes/api/public/stripe-webhook.ts that verifies
+     the Stripe signature over the RAW body with the webhook secret before
+     processing, then upserts the subscriptions row on
+     checkout.session.completed, customer.subscription.updated and
+     customer.subscription.deleted.
+   - Plan gates are checked server-side from the subscriptions row. Never
+     trust plan status from browser storage or client code.
 
 After each step run a typecheck and report anything broken.
 ```
