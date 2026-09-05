@@ -33,6 +33,12 @@ Photo, document and voice captures upload to file storage and create an inbox it
 ### 5. Ask Dayly and AI review
 `askDayly` and the extraction pipeline call a server-side AI endpoint that only ever answers from the household's own stored items and must return source references. No proposal is applied without an explicit approval action.
 
+### 6. Subscriptions (Stripe)
+- The Stripe **secret key never appears in the codebase** — it is stored as a project secret and read inside server handlers only.
+- Server functions for: creating a checkout session, opening the customer portal (manage/cancel billing), and reading the household's current plan.
+- A webhook endpoint at `/api/public/stripe-webhook` verifies Stripe's signature over the raw request body before doing anything, then records subscription status and plan on the household.
+- A `subscriptions` table (household id, plan, status, renews-at) with RLS so members read only their own household's row; premium gates check it server-side, never from browser storage.
+
 ## Technical notes
 
 - Auth and database: Supabase (Postgres + Auth + Storage + row-level security), which the frontend types were designed against.
@@ -104,6 +110,22 @@ E. Capture upload: photo/document/voice go to a Storage bucket with per-
 F. Ask Dayly + AI review: a server function that answers only from the
    signed-in user's household data and always returns SourceRef entries. No
    proposal is ever applied without an explicit user approval call.
+G. Subscriptions with Stripe:
+   - NEVER hardcode the Stripe secret key or put it in the repo. It is read
+     with process.env['STRIPE_SECRET_KEY'] inside server handlers only.
+   - Add a subscriptions table (household_id, plan, status, current_period_end,
+     stripe_customer_id, stripe_subscription_id) with grants and RLS: members
+     can read only their own household's row.
+   - Server functions: createCheckoutSession (redirect to Stripe Checkout),
+     createBillingPortalSession (manage/cancel), getSubscription (current plan
+     for the signed-in user's household).
+   - A webhook route at src/routes/api/public/stripe-webhook.ts that verifies
+     the Stripe signature over the RAW body with the webhook secret before
+     processing, then upserts the subscriptions row on
+     checkout.session.completed, customer.subscription.updated and
+     customer.subscription.deleted.
+   - Plan gates are checked server-side from the subscriptions row. Never
+     trust plan status from browser storage or client code.
 
 After each step run a typecheck and report anything broken.
 ```
